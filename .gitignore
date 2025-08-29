@@ -1,0 +1,19 @@
+﻿# Node/Next/Electron
+node_modules/
+.next/
+dist/
+coverage/
+*.log
+
+# Firebase
+.firebase/
+firebase-debug.log
+functions/node_modules/
+
+# Ambientes (não versionar)
+.env*
+!.env.example
+
+# IDE/SO
+.vscode/
+.DS_Store

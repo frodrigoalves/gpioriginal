@@ -17,3 +17,4 @@ functions/node_modules/
 # IDE/SO
 .vscode/
 .DS_Store
+.env*

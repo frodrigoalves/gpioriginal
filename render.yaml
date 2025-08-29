@@ -1,0 +1,15 @@
+﻿services:
+- type: web
+  name: gpi-api
+  env: python
+  region: oregon
+  plan: free
+  rootDir: api
+  buildCommand: "pip install -r requirements.txt"
+  startCommand: "gunicorn app:app -w 2 -k gthread -b 0.0.0.0:$PORT"
+  healthCheckPath: "/healthz"
+  envVars:
+    - key: GOOGLE_API_KEY
+      sync: false
+    - key: FRONT_ORIGIN
+      sync: false

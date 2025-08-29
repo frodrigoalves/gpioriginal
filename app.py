@@ -14,9 +14,9 @@ CORS(app, resources={r"/api/*": {"origins": os.getenv("FRONT_ORIGIN", "*")}})
 def healthz():
     return jsonify(ok=True, ts=int(time.time()))
 
+# NÃO vaza segredos; só indica presença de chave
 @app.get("/debug/config")
 def debug_config():
-    # não expõe valores; só indica presença
     has_key = bool(os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY"))
     return jsonify(has_api_key=has_key, model=os.getenv("GEMINI_MODEL", "gemini-1.5-flash"))
 
@@ -53,7 +53,7 @@ def prescricao():
                        info=str(getattr(resp, "prompt_feedback", ""))), 502
     return jsonify(text=text, ts=int(time.time()))
 
-# --- error handler global -> sempre JSON ---
+# Handler global: SEMPRE retorna JSON (nada de HTML 500)
 @app.errorhandler(Exception)
 def handle_any_error(e):
     if isinstance(e, HTTPException):
